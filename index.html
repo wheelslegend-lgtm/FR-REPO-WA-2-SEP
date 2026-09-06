@@ -235,10 +235,16 @@
   }
 
   var cta = document.getElementById("waCta");
-  cta.addEventListener("click", function(e){
-    e.preventDefault();    
+cta.addEventListener("click", function(e){
+    e.preventDefault();
+
+    // Google Ads WhatsApp conversion
+    gtag('event', 'conversion', {
+        'send_to': 'AW-18342242769/dD5QCMmoxe8cENHToapE'
+    });
+
     var settled = false;
-    var timeout = setTimeout(function(){
+  var timeout = setTimeout(function(){
       if(!settled){
         settled = true;
         go(waLink(fallbackChoice()));

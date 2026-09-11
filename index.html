@@ -210,66 +210,19 @@
 
 <script>
 (function(){
-  var NUM_A = "+18623667836"; // WhatsApp number 1
-  var NUM_B = "+14067321752"; // WhatsApp number 2
-  var MSG = encodeURIComponent("Hi, I'm interested in learning more about your Quotex trading strategy coaching.");
-
-  function waLink(num){
-    return "https://wa.me/" + num.replace(/[^0-9]/g,"") + "?text=" + MSG;
-  }
-
-  // Global 50/50 alternation using a small PHP counter hosted on YOUR OWN
-  // Hostinger account (wa-counter.php, same folder as this file). No
-  // third-party service involved. Falls back to a time-based split only
-  // if that script is ever unreachable (e.g. mid-deploy), so the button
-  // never breaks.
-  var COUNTER_URL = "wa-counter.php";
-
-  function fallbackChoice(){
-    var s = new Date().getTime();
-    return (s % 2 === 0) ? NUM_A : NUM_B;
-  }
-
-  function go(url){
-    window.location.href = url;
-  }
-
+  var CHANNEL_URL = "https://whatsapp.com/channel/0029VbC7cAi6GcGL8tF8WA2I";
   var cta = document.getElementById("waCta");
-cta.addEventListener("click", function(e){
+
+  cta.href = CHANNEL_URL;
+  cta.addEventListener("click", function(e){
     e.preventDefault();
 
     // Google Ads WhatsApp conversion
     gtag('event', 'conversion', {
-        'send_to': 'AW-18342242769/dD5QCMmoxe8cENHToapE'
+      'send_to': 'AW-18342242769/dD5QCMmoxe8cENHToapE'
     });
 
-    var settled = false;
-  var timeout = setTimeout(function(){
-      if(!settled){
-        settled = true;
-        go(waLink(fallbackChoice()));
-      }
-    }, 1500);
-
-    fetch(COUNTER_URL, { cache: "no-store" })
-      .then(function(res){ return res.json(); })
-      .then(function(data){
-        if(settled) return;
-        settled = true;
-        clearTimeout(timeout);
-        var count = data && typeof data.count === "number" ? data.count : null;
-        if(count === null){
-          go(waLink(fallbackChoice()));
-          return;
-        }
-        go(waLink(count % 2 === 1 ? NUM_A : NUM_B));
-      })
-      .catch(function(){
-        if(settled) return;
-        settled = true;
-        clearTimeout(timeout);
-        go(waLink(fallbackChoice()));
-      });
+    window.location.href = CHANNEL_URL;
   });
 })();
 </script>
